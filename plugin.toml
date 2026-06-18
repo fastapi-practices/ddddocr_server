@@ -1,0 +1,10 @@
+[plugin]
+summary = "验证码识别服务"
+version = "0.0.1"
+description = "基于 ddddocr 的本地验证码识别 API（文本/滑块/点选）"
+author = "fba"
+tags = ["other"]
+database = ["mysql"]
+
+[app]
+router = ["v1"]
