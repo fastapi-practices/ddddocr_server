@@ -7,3 +7,4 @@ venv/
 *.log
 .idea/
 .vscode/
+.omc/
