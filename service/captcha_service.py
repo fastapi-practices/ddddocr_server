@@ -33,7 +33,7 @@ class CaptchaService:
             return [[int(v) for v in box] for box in boxes]
 
     @staticmethod
-    async def match_slide(*, target: bytes, background: bytes) -> dict:
+    async def match_slide(*, target: bytes, background: bytes) -> dict[str, int]:
         """
         滑块缺口匹配
 
