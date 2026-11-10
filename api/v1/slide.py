@@ -1,13 +1,12 @@
 """滑块验证码缺口匹配路由"""
 
 from fastapi import APIRouter, Depends, UploadFile
-from pyrate_limiter import Duration, Rate
 
+from backend.common.limiter import rate_limit
 from backend.common.response.response_schema import ResponseSchemaModel, response_base
 from backend.plugin.ddddocr_server.schema.slide import SlideBase64Param, SlideResult
 from backend.plugin.ddddocr_server.service.captcha_service import captcha_service
 from backend.plugin.ddddocr_server.utils import decode_base64, decode_upload
-from backend.utils.limiter import RateLimiter
 
 router = APIRouter()
 
@@ -15,7 +14,7 @@ router = APIRouter()
 @router.post(
     '',
     summary='滑块缺口匹配（文件上传）',
-    dependencies=[Depends(RateLimiter(Rate(30, Duration.MINUTE)))],
+    dependencies=[Depends(rate_limit('30/minute'))],
 )
 async def match_slide_upload(target: UploadFile, bg: UploadFile) -> ResponseSchemaModel[SlideResult]:
     target_bytes = await decode_upload(target)
@@ -27,7 +26,7 @@ async def match_slide_upload(target: UploadFile, bg: UploadFile) -> ResponseSche
 @router.post(
     '/base64',
     summary='滑块缺口匹配（base64）',
-    dependencies=[Depends(RateLimiter(Rate(30, Duration.MINUTE)))],
+    dependencies=[Depends(rate_limit('30/minute'))],
 )
 async def match_slide_base64(obj: SlideBase64Param) -> ResponseSchemaModel[SlideResult]:
     target_bytes = decode_base64(obj.target)
