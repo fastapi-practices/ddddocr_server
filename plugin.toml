@@ -1,7 +1,7 @@
 [plugin]
 summary = "验证码识别服务"
 version = "0.0.2"
-fba_version = "~=1.17"
+fba_version = ">=2.0.0,<3.0.0"
 description = "基于 ddddocr 的本地验证码识别 API（文本/滑块/点选）"
 author = "david"
 tags = ["other"]
